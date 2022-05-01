@@ -1,13 +1,26 @@
-version: '3.8'
+version: "3.7"
 
 services:
   db:
-    image: postgres:14.1-alpine
+    image: postgres:14.2-alpine
+    #command: ["postgres", "-c", "fsync=false", "-c", "full_page_writes=off"]
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: personal_library
+      POSTGRES_DB: biblioteca_pessoal_development
     ports:
-      - '5432:5423'
+      - "5432:5423"
+    expose:
+      - "5432"
+
+  app:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/aplicacao
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db

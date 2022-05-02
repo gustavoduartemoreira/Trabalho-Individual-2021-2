@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build & Up app
-        working-directory: ./aplicacao
+      working-directory: ./aplicacao
         run: docker-compose up --build -d
 
   test:
@@ -27,15 +27,22 @@ jobs:
       with:
           bundler-cache: true
           ruby-version: '3.0.0'
-        working-directory: ./aplicacao
+      working-directory: ./aplicacao
         run: docker-compose run app rails db:reset
 
       - name: Run tests
       with:
           bundler-cache: true
           ruby-version: '3.0.0'
-        working-directory: ./aplicacao
-        run: docker-compose run app rspec
+      - name: Install Bundle
+        run: |
+          cd aplicacao/
+          bundle install
+      # Add or replace database setup steps here
+        run: rails db:reset
+      # Add or replace test runners here
+      - name: Run tests
+        run: rspec
 
   lint:
     name: Lint
@@ -44,8 +51,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run lint
-      with:
-          bundler-cache: true
-          ruby-version: '3.0.0'
-        working-directory: ./aplicacao
+      working-directory: ./aplicacao
         run: docker-compose run app bash -c "gem install rubocop; rubocop -A --fail-level F"

@@ -38,4 +38,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run lint
+        working-directory: ./aplicacao
         run: docker-compose run app bash -c "gem install rubocop; rubocop -A --fail-level F"

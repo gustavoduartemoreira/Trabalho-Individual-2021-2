@@ -14,22 +14,27 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build & Up app
+        working-directory: ./aplicacao
         run: docker-compose up --build -d
 
   test:
     name: Test
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v3
       - name: Reset db Postgres
+        working-directory: ./aplicacao
         run: docker-compose run app rails db:reset
 
       - name: Run tests
+        working-directory: ./aplicacao
         run: docker-compose run app rspec
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - uses: actions/checkout@v3
       - name: Run lint

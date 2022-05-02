@@ -23,3 +23,12 @@ services:
       - "3000:3000"
     depends_on:
       - db
+
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    depends_on:
+      - app
+    ports:
+      - 80:80

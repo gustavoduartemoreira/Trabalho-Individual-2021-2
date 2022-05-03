@@ -1,4 +1,4 @@
-# Trabalho Individual  2021.2
+# Trabalho Individual  2021.2 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/gustavoduartemoreira/Trabalho-Individual-2021-2/CI?style=plastic)
 
 Os conhecimentos de *Gestão de Configuração de Software* são fundamentais no ciclo de vida de um produto de software. As técnicas para a gestão vão desde o controle de versão, automação de build e de configuração de ambiente, testes automatizados, isolamento do ambiente até o deploy do sistema. Todo este ciclo nos dias de hoje são integrados em um pipeline de DevOps com as etapas de Integração Contínua (CI) e Deploy Contínuo (CD) implementadas e automatizada.
 
